@@ -1,3 +1,3 @@
-import AppContainer from './AppContainer'
+import AppView from './AppView'
 
-export default AppContainer
+export default AppView
