@@ -8,4 +8,4 @@ export const fetchPosts = () => axios.get(createUrl())
 
 export const fetchPost = postId => axios.get(createUrl(postId))
 
-export const deletePost = postId => axios.delete(createUrl(postId))
+export const removePost = postId => axios.delete(createUrl(postId))

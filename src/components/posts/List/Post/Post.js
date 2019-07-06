@@ -5,7 +5,7 @@ import { Paper } from '@material-ui/core'
 import './Post.scss'
 
 const Post = ({ id, title, categories }) => (
-  <Link to={`/${id}`}>
+  <Link to={id && `/${id}`}>
     <Paper className="List_Post">
       <div>{title}</div>
       <div>{categories}</div>

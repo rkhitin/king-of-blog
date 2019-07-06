@@ -1,16 +1,8 @@
 import nanoId from 'nanoid'
 
 import history from '../../history'
-import { fetchPosts, savePost, fetchPost } from '../../requests'
-import {
-  setLoading,
-  fetchAllFail,
-  fetchAllSuccess,
-  addItem,
-  fetchOneFail,
-  fetchOneSuccess,
-  replaceTempItemIdWithReal,
-} from './actions'
+import { fetchPosts, savePost, fetchPost, removePost } from '../../requests'
+import { setLoading, fetchAllFail, fetchAllSuccess, fetchOneFail, fetchOneSuccess, saveFail } from './actions'
 
 const defaultErrorMessage = 'Oops, something going wrong'
 
@@ -49,29 +41,25 @@ export const fetchOne = postId => async dispatch => {
 }
 
 export const save = post => async dispatch => {
-  const tempId = nanoId()
-  const postWithTempId = { ...post, tempId }
-
-  dispatch(addItem(postWithTempId))
-
   try {
     const response = await savePost(post)
     const createdPost = response.data
 
     if (!createdPost.id) {
-      console.log('show modal')
+      dispatch(saveFail(defaultErrorMessage))
       return
     }
 
-    dispatch(
-      replaceTempItemIdWithReal({
-        tempId,
-        realId: createdPost.id,
-      })
-    )
-
-    history.push('/')
+    history.push(`/${createdPost.id}`)
   } catch (e) {
-    console.log('show modal!')
+    dispatch(saveFail(defaultErrorMessage))
   }
+}
+
+export const remove = postId => async () => {
+  try {
+    await removePost(postId)
+
+    history.push(`/`)
+  } catch (e) {}
 }

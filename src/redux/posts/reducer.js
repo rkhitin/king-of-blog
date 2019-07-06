@@ -20,6 +20,7 @@ const reducer = (state = initState, action) => {
     case actionsTypes.fetchOneSuccess:
       return { ...state, items: [...state.items, action.payload] }
 
+    case actionsTypes.saveFail:
     case actionsTypes.fetchOneFail:
       return { ...state, errorMessage: action.payload }
 

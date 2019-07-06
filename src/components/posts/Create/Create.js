@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { TextField, Button } from '@material-ui/core'
+import { TextField, Button, SnackbarContent } from '@material-ui/core'
 
 import './Create.scss'
 
@@ -15,8 +15,11 @@ const Create = ({
   setCategories,
   setContent,
   save,
+  errorMessage,
+  isSaving,
 }) => (
   <div>
+    {errorMessage && <SnackbarContent message={errorMessage} />}
     <div className="CreateView_formGroup">
       <TextField
         error={!!titleErrorMessage}
@@ -48,7 +51,7 @@ const Create = ({
       />
     </div>
     <div className="CreateView_formGroup CreateView_controls">
-      <Button variant="contained" onClick={save}>
+      <Button disabled={isSaving} variant="contained" onClick={save}>
         Save
       </Button>
       <Link to="/">

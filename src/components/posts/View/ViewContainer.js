@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { postsSelector, errorMessageSelector, actions } from '../../../redux/posts'
@@ -12,7 +12,12 @@ const ViewContainer = ({ match }) => {
   const posts = useSelector(postsSelector)
   const errorMessage = useSelector(errorMessageSelector)
 
+  const [isRemoving, setRemoving] = useState(false)
   const dispatch = useDispatch()
+  const remove = useCallback(() => {
+    setRemoving(true)
+    dispatch(actions.remove(currentPostId))
+  }, [dispatch, setRemoving])
 
   const currentPost = posts.find(post => String(post.id) === String(currentPostId))
 
@@ -24,7 +29,7 @@ const ViewContainer = ({ match }) => {
 
   if (!currentPost) return <Loader />
 
-  return <View {...currentPost} />
+  return <View {...currentPost} remove={remove} isRemoving={isRemoving} />
 }
 
 export default ViewContainer

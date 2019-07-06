@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { actions } from '../../../redux/posts'
+import { actions, errorMessageSelector } from '../../../redux/posts'
 
 import Create from './Create'
 
 const emptyFieldErrorMessage = "Can't be empty"
 
 const CreateContainer = () => {
+  const [isSaving, setSaving] = useState(false)
   const [title, setTitle] = useState('')
   const [titleErrorMessage, setTitleErrorMessage] = useState('')
   const [categories, setCategories] = useState('')
@@ -15,6 +16,7 @@ const CreateContainer = () => {
   const [content, setContent] = useState('')
   const [contentErrorMessage, setContentErrorMessage] = useState('')
 
+  const errorMessage = useSelector(errorMessageSelector)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -49,6 +51,8 @@ const CreateContainer = () => {
       return
     }
 
+    setSaving(true)
+
     dispatch(
       actions.save({
         title,
@@ -56,8 +60,6 @@ const CreateContainer = () => {
         content,
       })
     )
-
-    console.log('nya')
   }
 
   const createViewProps = {
@@ -71,6 +73,8 @@ const CreateContainer = () => {
     setContent,
     contentErrorMessage,
     save,
+    errorMessage,
+    isSaving,
   }
 
   return <Create {...createViewProps} />

@@ -4,14 +4,16 @@ import { Button } from '@material-ui/core'
 
 import './View.scss'
 
-const View = ({ title, content, categories }) => (
+const View = ({ title, content, categories, remove, isRemoving }) => (
   <div>
     <header className="View_header">
       <Link to="/">
         <Button variant="contained">Back to posts</Button>
       </Link>
 
-      <Button variant="contained">Delete</Button>
+      <Button disabled={isRemoving} onClick={remove} variant="contained">
+        Delete
+      </Button>
     </header>
 
     <div className="View_text">{title}</div>
