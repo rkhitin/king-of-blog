@@ -11,6 +11,7 @@ const CreateContainer = () => {
   const [title, setTitle] = useState('')
   const [titleErrorMessage, setTitleErrorMessage] = useState('')
   const [categories, setCategories] = useState('')
+  const [categoriesErrorMessage, setCategoriesErrorMessage] = useState('')
   const [content, setContent] = useState('')
   const [contentErrorMessage, setContentErrorMessage] = useState('')
 
@@ -26,10 +27,20 @@ const CreateContainer = () => {
 
     setContentErrorMessage('')
   }, [content])
+  useEffect(() => {
+    if (!categories) return
+
+    setCategoriesErrorMessage('')
+  }, [categories])
 
   const save = () => {
     if (!title) {
       setTitleErrorMessage(emptyFieldErrorMessage)
+      return
+    }
+
+    if (!categories) {
+      setCategoriesErrorMessage(emptyFieldErrorMessage)
       return
     }
 
@@ -54,6 +65,7 @@ const CreateContainer = () => {
     setTitle,
     titleErrorMessage,
     categories,
+    categoriesErrorMessage,
     setCategories,
     content,
     setContent,

@@ -16,3 +16,7 @@ export const removeItem = createAction(actionsTypes.removeItem)
 export const fetchAllSuccess = createAction(actionsTypes.fetchAllSuccess)
 
 export const fetchAllFail = createAction(actionsTypes.fetchAllFail)
+
+export const fetchOneSuccess = createAction(actionsTypes.fetchOneSuccess)
+
+export const fetchOneFail = createAction(actionsTypes.fetchOneFail)

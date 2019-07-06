@@ -1,19 +1,25 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, CircularProgress } from '@material-ui/core'
+import { Button } from '@material-ui/core'
+
+import Post from './Post'
 
 import './List.scss'
 
-const List = (isLoading, posts) => (
-  <div>
-    <header className="ListView_header">
-      <Link to="/new">
-        <Button variant="contained">Add Post</Button>
-      </Link>
-    </header>
+const List = ({ posts }) => {
+  const renderPosts = () => posts.map(post => <Post key={post.id || post.tempId} {...post} />)
 
-    <div>{isLoading ? <CircularProgress value={100} /> : <div>asdf</div>}</div>
-  </div>
-)
+  return (
+    <div>
+      <header className="List_header">
+        <Link to="/new">
+          <Button variant="contained">Add Post</Button>
+        </Link>
+      </header>
+
+      <div className="List_items">{renderPosts()}</div>
+    </div>
+  )
+}
 
 export default List

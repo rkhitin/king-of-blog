@@ -2,12 +2,14 @@ import React from 'react'
 import { Router, Switch, Route } from 'react-router-dom'
 import { Container } from '@material-ui/core'
 
-import browserHistory from '../../history'
+import history from '../../history'
 import { List, View, Create } from '../posts'
+
+import './App.scss'
 
 const App = () => (
   <Container maxWidth="md">
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Switch>
         <Route exact path="/" component={List} />
         <Route path="/new" component={Create} />

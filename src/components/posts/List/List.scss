@@ -1,5 +1,10 @@
-.ListView_header {
+.List_header {
   display: flex;
   justify-content: flex-end;
-  padding: 15px 0;
+  padding-top: 15px;
+  padding-bottom: 30px;
+}
+
+.List_items {
+  margin: -15px 0;
 }

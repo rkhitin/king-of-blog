@@ -1,14 +1,14 @@
 import nanoId from 'nanoid'
 
-import { fetchPosts, savePost } from '../../requests'
+import history from '../../history'
+import { fetchPosts, savePost, fetchPost } from '../../requests'
 import {
   setLoading,
   fetchAllFail,
   fetchAllSuccess,
   addItem,
-  removeItem,
-  addSaveInProgressItemId,
-  removeSaveInProgressItemId,
+  fetchOneFail,
+  fetchOneSuccess,
   replaceTempItemIdWithReal,
 } from './actions'
 
@@ -18,16 +18,33 @@ export const fetchAll = () => async dispatch => {
   dispatch(setLoading(true))
 
   try {
-    const posts = await fetchPosts()
+    const response = await fetchPosts()
+    const posts = response.data
 
     if (!Array.isArray(posts)) {
-      fetchAllFail(defaultErrorMessage)
+      dispatch(fetchAllFail(defaultErrorMessage))
       return
     }
 
-    fetchAllSuccess(posts)
+    dispatch(fetchAllSuccess(posts))
   } catch (e) {
-    fetchAllFail(e.message)
+    dispatch(fetchAllFail(e.message))
+  }
+}
+
+export const fetchOne = postId => async dispatch => {
+  try {
+    const response = await fetchPost(postId)
+    const post = response.data
+
+    if (!post) {
+      dispatch(fetchOneFail(defaultErrorMessage))
+      return
+    }
+
+    dispatch(fetchOneSuccess(post))
+  } catch (e) {
+    dispatch(fetchOneFail(e.message))
   }
 }
 
@@ -38,7 +55,8 @@ export const save = post => async dispatch => {
   dispatch(addItem(postWithTempId))
 
   try {
-    const createdPost = await savePost(post)
+    const response = await savePost(post)
+    const createdPost = response.data
 
     if (!createdPost.id) {
       console.log('show modal')
@@ -51,6 +69,8 @@ export const save = post => async dispatch => {
         realId: createdPost.id,
       })
     )
+
+    history.push('/')
   } catch (e) {
     console.log('show modal!')
   }

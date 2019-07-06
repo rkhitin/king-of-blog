@@ -8,6 +8,7 @@ const Create = ({
   title,
   titleErrorMessage,
   categories,
+  categoriesErrorMessage,
   content,
   contentErrorMessage,
   setTitle,
@@ -28,10 +29,11 @@ const Create = ({
     </div>
     <div className="CreateView_formGroup">
       <TextField
+        error={!!categoriesErrorMessage}
         value={categories}
         onChange={e => setCategories(e.target.value)}
         label="Categories"
-        helperText="Separate by comma"
+        helperText={categoriesErrorMessage || 'Separate by comma'}
         placeholder="one, two, three"
       />
     </div>

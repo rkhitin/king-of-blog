@@ -1,5 +1,3 @@
-import React from 'react'
+import ViewContainer from './ViewContainer'
 
-const AppView = () => <div>post</div>
-
-export default AppView
+export default ViewContainer
