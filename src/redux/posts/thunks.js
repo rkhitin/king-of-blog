@@ -1,5 +1,3 @@
-import nanoId from 'nanoid'
-
 import history from '../../history'
 import { fetchPosts, savePost, fetchPost, removePost } from '../../requests'
 import { setLoading, fetchAllFail, fetchAllSuccess, fetchOneFail, fetchOneSuccess, saveFail } from './actions'
