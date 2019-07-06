@@ -1,12 +1,13 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Router, Switch, Route } from 'react-router-dom'
 import { Container } from '@material-ui/core'
 
+import browserHistory from '../../history'
 import { List, View, Create } from '../posts'
 
-const AppView = () => (
+const App = () => (
   <Container maxWidth="md">
-    <Router>
+    <Router history={browserHistory}>
       <Switch>
         <Route exact path="/" component={List} />
         <Route path="/new" component={Create} />
@@ -16,4 +17,4 @@ const AppView = () => (
   </Container>
 )
 
-export default AppView
+export default App

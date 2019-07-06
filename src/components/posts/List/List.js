@@ -4,7 +4,7 @@ import { Button, CircularProgress } from '@material-ui/core'
 
 import './List.scss'
 
-const ListView = (isLoading, posts) => (
+const List = (isLoading, posts) => (
   <div>
     <header className="ListView_header">
       <Link to="/new">
@@ -16,4 +16,4 @@ const ListView = (isLoading, posts) => (
   </div>
 )
 
-export default ListView
+export default List

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { loadingSelector, postsSelector, actions } from '../../../redux/posts'
 
-import ListView from './ListView'
+import List from './List'
 
 const ListContainer = () => {
   const isLoading = useSelector(loadingSelector)
@@ -16,7 +16,7 @@ const ListContainer = () => {
     fetchAll()
   }, [])
 
-  return <ListView isLoading={isLoading} posts={posts} />
+  return <List isLoading={isLoading} posts={posts} />
 }
 
 export default ListContainer

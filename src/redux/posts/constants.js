@@ -12,4 +12,9 @@ export const actionsTypes = {
 
   removeSuccess: 'posts/removeSuccess',
   removeFail: 'posts/removeFail',
+
+  addItem: 'posts/addItem',
+  removeItem: 'posts/removeItem',
+
+  replaceTempItemIdWithReal: 'posts/replaceTempItemIdWithReal',
 }

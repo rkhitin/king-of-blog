@@ -4,7 +4,7 @@ import { TextField, Button } from '@material-ui/core'
 
 import './Create.scss'
 
-const CreateView = ({
+const Create = ({
   title,
   titleErrorMessage,
   categories,
@@ -56,4 +56,4 @@ const CreateView = ({
   </div>
 )
 
-export default CreateView
+export default Create
