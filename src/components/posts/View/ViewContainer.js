@@ -13,8 +13,11 @@ const ViewContainer = ({ match }) => {
   const errorMessage = useSelector(errorMessageSelector)
 
   const [isRemoving, setRemoving] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false)
+
   const dispatch = useDispatch()
   const remove = useCallback(() => {
+    setModalOpen(false)
     setRemoving(true)
     dispatch(actions.remove(currentPostId))
   }, [dispatch, setRemoving])
@@ -29,7 +32,15 @@ const ViewContainer = ({ match }) => {
 
   if (!currentPost) return <Loader />
 
-  return <View {...currentPost} remove={remove} isRemoving={isRemoving} />
+  const viewProps = {
+    ...currentPost,
+    remove,
+    isRemoving,
+    isModalOpen,
+    setModalOpen,
+  }
+
+  return <View {...viewProps} />
 }
 
 export default ViewContainer
