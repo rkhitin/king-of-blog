@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-ui/core'
 
@@ -22,6 +23,10 @@ const List = ({ posts }) => {
       <div className="List_items">{renderPosts()}</div>
     </div>
   )
+}
+
+List.propTypes = {
+  posts: PropTypes.array.isRequired,
 }
 
 export default List

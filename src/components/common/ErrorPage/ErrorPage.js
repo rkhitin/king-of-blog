@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Container, Button } from '@material-ui/core'
 
 import './ErrorPage.scss'
@@ -15,5 +16,9 @@ const ErrorPage = ({ message }) => (
     </div>
   </Container>
 )
+
+ErrorPage.propTypes = {
+  message: PropTypes.string.isRequired,
+}
 
 export default ErrorPage

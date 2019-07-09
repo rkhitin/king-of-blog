@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Paper } from '@material-ui/core'
 
@@ -12,5 +13,11 @@ const Post = ({ id, title, categories }) => (
     </Paper>
   </Link>
 )
+
+Post.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  categories: PropTypes.string.isRequired,
+}
 
 export default Post

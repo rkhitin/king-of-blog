@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { TextField, Button, SnackbarContent } from '@material-ui/core'
 
 import Modal from '../../common/Modal'
@@ -79,6 +80,28 @@ const Create = ({
       />
     </div>
   )
+}
+
+Create.propTypes = {
+  title: PropTypes.string.isRequired,
+  titleErrorMessage: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
+
+  content: PropTypes.string.isRequired,
+  contentErrorMessage: PropTypes.string.isRequired,
+  setContent: PropTypes.func.isRequired,
+
+  categories: PropTypes.string.isRequired,
+  categoriesErrorMessage: PropTypes.string.isRequired,
+  setCategories: PropTypes.func.isRequired,
+
+  save: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
+  isSaving: PropTypes.bool.isRequired,
+  cancel: PropTypes.func.isRequired,
+  isUnsafeCancelModalOpen: PropTypes.bool.isRequired,
+  closeUnsafeCancelModal: PropTypes.func.isRequired,
+  isFormEmpty: PropTypes.bool.isRequired,
 }
 
 export default Create
