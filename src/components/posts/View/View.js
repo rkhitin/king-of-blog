@@ -1,29 +1,34 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Card } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 
-import Modal from './Modal'
+import Modal from '../../common/Modal'
 
 import './View.scss'
 
-const View = ({ title, content, categories, remove, setModalOpen, isRemoving, isModalOpen }) => (
-  <div>
-    <header className="View_header">
-      <Link to="/">
-        <Button variant="contained">Back to posts</Button>
-      </Link>
+const View = ({ title, content, categories, remove, setDeleteModalOpen, isRemoving, isDeleteModalOpen }) => {
+  const openDeleteModal = () => setDeleteModalOpen(true)
+  const closeDeleteModal = () => setDeleteModalOpen(false)
 
-      <Button disabled={isRemoving} onClick={() => setModalOpen(true)} variant="contained">
-        Delete
-      </Button>
-    </header>
+  return (
+    <div>
+      <header className="View_header">
+        <Link to="/">
+          <Button variant="contained">Back to posts</Button>
+        </Link>
 
-    <div className="View_text">{title}</div>
-    <div className="View_text">Categories: {categories}</div>
-    <div className="View_text">{content}</div>
+        <Button disabled={isRemoving} onClick={openDeleteModal} color="secondary" variant="contained">
+          Delete
+        </Button>
+      </header>
 
-    <Modal isOpen={isModalOpen} close={() => setModalOpen(false)} okHandler={remove} />
-  </div>
-)
+      <div className="View_text">{title}</div>
+      <div className="View_text">Categories: {categories}</div>
+      <div className="View_text">{content}</div>
+
+      <Modal title="Delete?" isOpen={isDeleteModalOpen} close={closeDeleteModal} okHandler={remove} okText="Aha" />
+    </div>
+  )
+}
 
 export default View

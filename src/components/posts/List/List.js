@@ -13,7 +13,9 @@ const List = ({ posts }) => {
     <div>
       <header className="List_header">
         <Link to="/new">
-          <Button variant="contained">Add Post</Button>
+          <Button color="primary" variant="contained">
+            Add Post
+          </Button>
         </Link>
       </header>
 

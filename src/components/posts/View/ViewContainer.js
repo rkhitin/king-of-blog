@@ -13,11 +13,11 @@ const ViewContainer = ({ match }) => {
   const errorMessage = useSelector(errorMessageSelector)
 
   const [isRemoving, setRemoving] = useState(false)
-  const [isModalOpen, setModalOpen] = useState(false)
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
 
   const dispatch = useDispatch()
   const remove = useCallback(() => {
-    setModalOpen(false)
+    setDeleteModalOpen(false)
     setRemoving(true)
     dispatch(actions.remove(currentPostId))
   }, [dispatch, setRemoving])
@@ -36,8 +36,8 @@ const ViewContainer = ({ match }) => {
     ...currentPost,
     remove,
     isRemoving,
-    isModalOpen,
-    setModalOpen,
+    isDeleteModalOpen,
+    setDeleteModalOpen,
   }
 
   return <View {...viewProps} />
