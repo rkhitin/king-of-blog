@@ -24,6 +24,28 @@ const reducer = (state = initState, action) => {
     case actionsTypes.fetchOneFail:
       return { ...state, errorMessage: action.payload }
 
+    case actionsTypes.addItem:
+      return {
+        ...state,
+        items: [action.payload, ...state.items],
+      }
+
+    case actionsTypes.removeItem:
+      return {
+        ...state,
+        items: state.items.filter(item => String(item.id) !== String(action.payload)),
+      }
+
+    case actionsTypes.replaceTempId:
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if (item.tempId !== action.payload.tempId) return item
+
+          return { ...item, id: action.payload.id }
+        }),
+      }
+
     default:
       return state
   }

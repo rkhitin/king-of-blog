@@ -17,4 +17,8 @@ export const fetchOneFail = createAction(actionsTypes.fetchOneFail)
 
 export const saveFail = createAction(actionsTypes.saveFail)
 
-export const removeFail = createAction(actionsTypes.removeFail)
+export const addItem = createAction(actionsTypes.addItem)
+
+export const removeItem = createAction(actionsTypes.removeItem)
+
+export const replaceTempId = createAction(actionsTypes.replaceTempId)

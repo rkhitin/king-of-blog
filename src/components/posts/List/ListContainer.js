@@ -15,8 +15,10 @@ const ListContainer = () => {
   const dispatch = useDispatch()
   const fetchAll = () => dispatch(actions.fetchAll())
 
+  console.log(posts)
+
   useEffect(() => {
-    fetchAll()
+    if (!posts.length) fetchAll()
   }, [])
 
   if (errorMessage) return <ErrorPage message={errorMessage} />

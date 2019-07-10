@@ -23,6 +23,7 @@ const Create = ({
   errorMessage,
   isSaving,
   cancel,
+  backToPosts,
   isUnsafeCancelModalOpen,
   closeUnsafeCancelModal,
   isFormEmpty,
@@ -75,7 +76,7 @@ const Create = ({
         title="You will lose content!"
         isOpen={isUnsafeCancelModalOpen}
         close={closeUnsafeCancelModal}
-        okHandler={cancel}
+        okHandler={backToPosts}
         okText="Aha"
       />
     </div>

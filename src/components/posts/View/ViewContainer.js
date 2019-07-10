@@ -9,6 +9,8 @@ import ErrorPage from '../../common/ErrorPage'
 
 const ViewContainer = ({ match }) => {
   const currentPostId = match.params.id
+  const findCurrentPost = post => String(post.id) === currentPostId || String(post.tempId) === currentPostId
+
   const posts = useSelector(postsSelector)
   const errorMessage = useSelector(errorMessageSelector)
 
@@ -22,11 +24,17 @@ const ViewContainer = ({ match }) => {
     dispatch(actions.remove(currentPostId))
   }, [dispatch, setRemoving])
 
-  const currentPost = posts.find(post => String(post.id) === String(currentPostId))
+  const currentPost = posts.find(findCurrentPost)
 
   useEffect(() => {
     !currentPost && dispatch(actions.fetchOne(currentPostId))
   }, [])
+
+  useEffect(() => {
+    if (!currentPost || !(currentPost.id && currentPost.tempId)) return
+
+    window.history.pushState('', '', `/${currentPost.id}`)
+  }, [currentPost])
 
   if (errorMessage) return <ErrorPage message={errorMessage} />
 

@@ -1,6 +1,17 @@
+import nanoId from 'nanoid'
+
 import history from '../../history'
 import { fetchPosts, savePost, fetchPost, removePost } from '../../requests'
-import { setLoading, fetchAllFail, fetchAllSuccess, fetchOneFail, fetchOneSuccess, saveFail } from './actions'
+import {
+  setLoading,
+  fetchAllFail,
+  fetchAllSuccess,
+  fetchOneFail,
+  fetchOneSuccess,
+  addItem,
+  removeItem,
+  replaceTempId,
+} from './actions'
 
 const defaultErrorMessage = 'Oops, something going wrong'
 
@@ -39,25 +50,37 @@ export const fetchOne = postId => async dispatch => {
 }
 
 export const save = post => async dispatch => {
+  const tempId = nanoId()
+  const postWithTempId = { ...post, tempId }
+
+  dispatch(addItem(postWithTempId))
+
+  history.push(`/${tempId}`)
+
   try {
     const response = await savePost(post)
     const createdPost = response.data
 
     if (!createdPost.id) {
-      dispatch(saveFail(defaultErrorMessage))
+      //   dispatch(saveFail(defaultErrorMessage))
       return
     }
 
-    history.push(`/${createdPost.id}`)
+    dispatch(replaceTempId({ tempId, id: createdPost.id }))
+
+    // history.push(`/${createdPost.id}`)
+    // history.push(`/`)
   } catch (e) {
-    dispatch(saveFail(defaultErrorMessage))
+    // dispatch(saveFail(defaultErrorMessage))
   }
 }
 
-export const remove = postId => async () => {
+export const remove = postId => async dispatch => {
+  dispatch(removeItem(postId))
+
+  history.push(`/`)
+
   try {
     await removePost(postId)
-
-    history.push(`/`)
   } catch (e) {}
 }

@@ -70,9 +70,11 @@ const CreateContainer = () => {
     )
   }
 
+  const backToPosts = () => history.push('/')
+
   const cancel = () => {
     if (isFormEmpty) {
-      history.push('/')
+      backToPosts()
       return
     }
 
@@ -98,6 +100,7 @@ const CreateContainer = () => {
     errorMessage,
     isSaving,
     cancel,
+    backToPosts,
     isUnsafeCancelModalOpen,
     closeUnsafeCancelModal,
     isFormEmpty,

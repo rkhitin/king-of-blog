@@ -9,5 +9,8 @@ export const actionsTypes = {
 
   saveFail: 'posts/saveFail',
 
-  removeFail: 'posts/removeFail',
+  addItem: 'posts/addItem',
+  removeItem: 'posts/removeItem',
+
+  replaceTempId: 'posts/replaceTempId',
 }
