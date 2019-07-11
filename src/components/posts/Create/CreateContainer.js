@@ -2,26 +2,33 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import history from '../../../history'
-import { actions, errorMessageSelector } from '../../../redux/posts'
+import { actions, reeditedItemSelector } from '../../../redux/posts'
 
 import Create from './Create'
 
 const emptyFieldErrorMessage = "Can't be empty"
+const emptyPost = {
+  title: '',
+  categories: '',
+  content: '',
+}
 
 const CreateContainer = () => {
   const [isSaving, setSaving] = useState(false)
+  const reeditedItem = useSelector(reeditedItemSelector)
 
-  const [title, setTitle] = useState('')
+  const initPost = reeditedItem || emptyPost
+
+  const [title, setTitle] = useState(initPost.title)
   const [titleErrorMessage, setTitleErrorMessage] = useState('')
-  const [categories, setCategories] = useState('')
+  const [categories, setCategories] = useState(initPost.categories)
   const [categoriesErrorMessage, setCategoriesErrorMessage] = useState('')
-  const [content, setContent] = useState('')
+  const [content, setContent] = useState(initPost.content)
   const [contentErrorMessage, setContentErrorMessage] = useState('')
 
   const [isFormEmpty, setFormEmpty] = useState(true)
   const [isUnsafeCancelModalOpen, setUnsafeCancelModalOpen] = useState(false)
 
-  const errorMessage = useSelector(errorMessageSelector)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -61,6 +68,10 @@ const CreateContainer = () => {
 
     setSaving(true)
 
+    if (reeditedItem) {
+      dispatch(actions.setReeditedPost(null))
+    }
+
     dispatch(
       actions.save({
         title,
@@ -74,7 +85,12 @@ const CreateContainer = () => {
 
   const cancel = () => {
     if (isFormEmpty) {
+      if (reeditedItem) {
+        dispatch(actions.setReeditedPost(null))
+      }
+
       backToPosts()
+
       return
     }
 
@@ -97,7 +113,6 @@ const CreateContainer = () => {
     contentErrorMessage,
 
     save,
-    errorMessage,
     isSaving,
     cancel,
     backToPosts,

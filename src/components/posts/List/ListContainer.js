@@ -5,7 +5,6 @@ import { loadingSelector, postsSelector, errorMessageSelector, actions } from '.
 
 import List from './List'
 import Loader from '../../common/Loader'
-import ErrorPage from '../../common/ErrorPage'
 
 const ListContainer = () => {
   const isLoading = useSelector(loadingSelector)
@@ -15,15 +14,11 @@ const ListContainer = () => {
   const dispatch = useDispatch()
   const fetchAll = () => dispatch(actions.fetchAll())
 
-  console.log(posts)
-
   useEffect(() => {
     if (!posts.length) fetchAll()
   }, [])
 
-  if (errorMessage) return <ErrorPage message={errorMessage} />
-
-  if (isLoading) return <Loader />
+  if (isLoading || errorMessage) return <Loader />
 
   return <List isLoading={isLoading} posts={posts} />
 }

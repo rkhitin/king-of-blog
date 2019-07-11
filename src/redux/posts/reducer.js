@@ -4,12 +4,16 @@ const initState = {
   items: [],
   isLoading: false,
   errorMessage: null,
+  reeditedItem: null,
 }
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case actionsTypes.setLoading:
       return { ...state, isLoading: action.payload }
+
+    case actionsTypes.setErrorMessage:
+      return { ...state, errorMessage: action.payload }
 
     case actionsTypes.fetchAllSuccess:
       return { ...state, items: action.payload, isLoading: false }
@@ -20,7 +24,6 @@ const reducer = (state = initState, action) => {
     case actionsTypes.fetchOneSuccess:
       return { ...state, items: [...state.items, action.payload] }
 
-    case actionsTypes.saveFail:
     case actionsTypes.fetchOneFail:
       return { ...state, errorMessage: action.payload }
 
@@ -36,6 +39,12 @@ const reducer = (state = initState, action) => {
         items: state.items.filter(item => String(item.id) !== String(action.payload)),
       }
 
+    case actionsTypes.removeTempItem:
+      return {
+        ...state,
+        items: state.items.filter(item => String(item.tempId) !== String(action.payload)),
+      }
+
     case actionsTypes.replaceTempId:
       return {
         ...state,
@@ -44,6 +53,12 @@ const reducer = (state = initState, action) => {
 
           return { ...item, id: action.payload.id }
         }),
+      }
+
+    case actionsTypes.setReeditedItem:
+      return {
+        ...state,
+        reeditedItem: action.payload,
       }
 
     default:

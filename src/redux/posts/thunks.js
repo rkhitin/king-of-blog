@@ -1,9 +1,11 @@
 import nanoId from 'nanoid'
+import { batch } from 'react-redux'
 
 import history from '../../history'
 import { fetchPosts, savePost, fetchPost, removePost } from '../../requests'
 import {
   setLoading,
+  setErrorMessage,
   fetchAllFail,
   fetchAllSuccess,
   fetchOneFail,
@@ -11,6 +13,8 @@ import {
   addItem,
   removeItem,
   replaceTempId,
+  removeTempItem,
+  setReeditedPost,
 } from './actions'
 
 const defaultErrorMessage = 'Oops, something going wrong'
@@ -61,19 +65,26 @@ export const save = post => async dispatch => {
     const response = await savePost(post)
     const createdPost = response.data
 
-    if (!createdPost.id) {
-      //   dispatch(saveFail(defaultErrorMessage))
+    if (!createdPost || !createdPost.id) {
+      batch(() => {
+        dispatch(setReeditedPost(post))
+        dispatch(removeTempItem(tempId))
+        dispatch(setErrorMessage('ha ha ha'))
+      })
+
+      history.push('/new')
+
       return
     }
 
     dispatch(replaceTempId({ tempId, id: createdPost.id }))
-
-    // history.push(`/${createdPost.id}`)
-    // history.push(`/`)
   } catch (e) {
-    // dispatch(saveFail(defaultErrorMessage))
+    dispatch(setErrorMessage(defaultErrorMessage))
+    history.push('/new')
   }
 }
+
+const removeError = "Can't delete post"
 
 export const remove = postId => async dispatch => {
   dispatch(removeItem(postId))
@@ -81,6 +92,13 @@ export const remove = postId => async dispatch => {
   history.push(`/`)
 
   try {
-    await removePost(postId)
-  } catch (e) {}
+    const response = await removePost(postId)
+    const deletedPost = response.data
+
+    if (!deletedPost || !deletedPost.id) {
+      dispatch(setErrorMessage(removeError))
+    }
+  } catch (e) {
+    dispatch(setErrorMessage(removeError))
+  }
 }

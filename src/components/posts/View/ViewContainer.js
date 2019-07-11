@@ -5,7 +5,6 @@ import { postsSelector, errorMessageSelector, actions } from '../../../redux/pos
 
 import View from './View'
 import Loader from '../../common/Loader'
-import ErrorPage from '../../common/ErrorPage'
 
 const ViewContainer = ({ match }) => {
   const currentPostId = match.params.id
@@ -36,9 +35,7 @@ const ViewContainer = ({ match }) => {
     window.history.pushState('', '', `/${currentPost.id}`)
   }, [currentPost])
 
-  if (errorMessage) return <ErrorPage message={errorMessage} />
-
-  if (!currentPost) return <Loader />
+  if (!currentPost || errorMessage) return <Loader />
 
   const viewProps = {
     ...currentPost,

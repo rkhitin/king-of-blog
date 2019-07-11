@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TextField, Button, SnackbarContent } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
 
 import Modal from '../../common/Modal'
 
@@ -20,7 +20,6 @@ const Create = ({
   setContent,
 
   save,
-  errorMessage,
   isSaving,
   cancel,
   backToPosts,
@@ -32,7 +31,6 @@ const Create = ({
 
   return (
     <div>
-      {errorMessage && <SnackbarContent message={errorMessage} />}
       <div className="CreateView_formGroup">
         <TextField
           error={!!titleErrorMessage}

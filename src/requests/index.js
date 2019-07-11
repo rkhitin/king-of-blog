@@ -4,9 +4,12 @@ const createUrl = (postId = '') => `http://reduxblog.herokuapp.com/api/posts/${p
 
 export const savePost = post =>
   new Promise(resolve => {
-    const r = axios.post(createUrl(), post)
+    const response = axios.post(createUrl(), post)
+
     setTimeout(() => {
-      resolve(r)
+      const result = Math.random() > 0.5 ? response : {}
+
+      resolve(result)
     }, 3000)
   })
 

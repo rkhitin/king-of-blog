@@ -4,6 +4,7 @@ import { Container } from '@material-ui/core'
 
 import history from '../../history'
 import { List, View, Create } from '../posts'
+import Notifications from './Notifications'
 
 import './App.scss'
 
@@ -16,6 +17,8 @@ const App = () => (
         <Route path="/:id" component={View} />
       </Switch>
     </Router>
+
+    <Notifications />
   </Container>
 )
 
